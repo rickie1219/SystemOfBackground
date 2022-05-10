@@ -17,6 +17,10 @@ public class TestCaptcha {
 
     }
 
+    public static void exciseZero() {
+        // test 方法
+    }
+
     // LineCaptcha 线段干扰的验证码
     public static void exciseOne() {
         //定义图形验证码的长和宽
