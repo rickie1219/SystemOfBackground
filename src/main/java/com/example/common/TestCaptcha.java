@@ -50,7 +50,7 @@ public class TestCaptcha {
         CircleCaptcha captcha = CaptchaUtil.createCircleCaptcha(200, 100, 4, 20);
         //CircleCaptcha captcha = new CircleCaptcha(200, 100, 4, 20);
         //图形验证码写出，可以写出到文件，也可以写出到流
-        captcha.write("captcha/circle.png");
+        captcha.write("d:/circle.png");
         //新的验证码
         Console.log(" = Two = " + captcha.getCode());
         //验证图形验证码的有效性，返回boolean值
@@ -64,7 +64,7 @@ public class TestCaptcha {
         ShearCaptcha captcha = CaptchaUtil.createShearCaptcha(200, 100, 4, 4);
         //ShearCaptcha captcha = new ShearCaptcha(200, 100, 4, 4);
         //图形验证码写出，可以写出到文件，也可以写出到流
-        captcha.write("captcha/shear.png");
+        captcha.write("d:/shear.png");
         //新的验证码
         Console.log(" = Three = " + captcha.getCode());
         //验证图形验证码的有效性，返回boolean值
@@ -90,7 +90,7 @@ public class TestCaptcha {
         // 重新生成code
         lineCaptcha.createCode();
         //图形验证码写出，可以写出到文件，也可以写出到流
-        lineCaptcha.write("captcha/fiveLineCaptcha.png");
+        lineCaptcha.write("d:/fiveLineCaptcha.png");
         //新的验证码
         Console.log(" = Five = " + lineCaptcha.getCode());
         //验证图形验证码的有效性，返回boolean值
@@ -106,7 +106,7 @@ public class TestCaptcha {
         captcha.createCode();
 
         //图形验证码写出，可以写出到文件，也可以写出到流
-        captcha.write("captcha/sixLineCaptcha.png");
+        captcha.write("d:/sixLineCaptcha.png");
         //新的验证码
         Console.log(" = Six = " + captcha.getCode());
         //验证图形验证码的有效性，返回boolean值
