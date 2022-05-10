@@ -5,16 +5,23 @@ import cn.hutool.captcha.generator.MathGenerator;
 import cn.hutool.captcha.generator.RandomGenerator;
 import cn.hutool.core.lang.Console;
 
+import javax.imageio.ImageIO;
+import javax.servlet.ServletOutputStream;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+
 public class TestCaptcha {
     public static void main(String[] args) {
 
         exciseOne();
-        exciseTwo();
-        exciseThree();
-        exciseFour();
-        exciseFive();
-        exciseSix();
-        exciseSeven();
+//        exciseTwo();
+//        exciseThree();
+//        exciseFour();
+//        exciseFive();
+//        exciseSix();
+//        exciseSeven();
 
     }
 
@@ -28,7 +35,7 @@ public class TestCaptcha {
         LineCaptcha lineCaptcha = CaptchaUtil.createLineCaptcha(200, 100);
 
         //图形验证码写出，可以写出到文件，也可以写出到流
-        lineCaptcha.write("d:/lineOne.png");
+        lineCaptcha.write("lineBug.png");
         //输出code
         Console.log(" = one = " + lineCaptcha.getCode());
         //验证图形验证码的有效性，返回boolean值
@@ -37,7 +44,7 @@ public class TestCaptcha {
 
         //重新生成验证码
         lineCaptcha.createCode();
-        lineCaptcha.write("d:/lineTwo.png");
+        lineCaptcha.write("d://lineTwo.png");
         //新的验证码
         Console.log(" = one-Two = " + lineCaptcha.getCode());
         //验证图形验证码的有效性，返回boolean值
@@ -78,6 +85,20 @@ public class TestCaptcha {
         //ICaptcha captcha = ...;
         //captcha.write(response.getOutputStream());
         //Servlet的OutputStream记得自行关闭哦！
+        /**
+        try {
+            // 方法一： 向浏览器输出验证码图片
+            ServletOutputStream outputStream = response.getOutputStream();
+            captcha.write(outputStream);
+            // 方法二： 向浏览器输出验证码图片
+            BufferedImage image = captcha.getImage();
+            ImageIO.write(image, "jpeg", outputStream);
+            // 关闭流
+            outputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+         */
     }
 
     // 自定义验证码
