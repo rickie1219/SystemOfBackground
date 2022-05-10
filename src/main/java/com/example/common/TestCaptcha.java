@@ -9,11 +9,11 @@ public class TestCaptcha {
     public static void main(String[] args) {
 
         exciseOne();
-//        exciseTwo();
-//        exciseThree();
-//        exciseFour();
-//        exciseFive();
-//        exciseSix();
+        exciseTwo();
+        exciseThree();
+        exciseFour();
+        exciseFive();
+        exciseSix();
 
     }
 
