@@ -182,13 +182,6 @@ public class UserController {
         writer.addHeaderAlias("avatarUrl", "头像");
 
         writer.write(list, true);
-
-        // 打印一下log
-        System.out.println(writer);
-
-
-
-
     }
 
 }
