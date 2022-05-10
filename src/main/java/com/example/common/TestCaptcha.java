@@ -14,6 +14,7 @@ public class TestCaptcha {
         exciseFour();
         exciseFive();
         exciseSix();
+        exciseSeven();
 
     }
 
@@ -112,5 +113,19 @@ public class TestCaptcha {
         //验证图形验证码的有效性，返回boolean值
         Boolean resSix = captcha.verify("1234");
         Console.log(" = resSix = " + resSix);
+    }
+
+    // GIF我最闪亮验证码
+    public static void exciseSeven() {
+        GifCaptcha gifCaptcha = CaptchaUtil.createGifCaptcha(500, 200, 8);
+        gifCaptcha.write("d:/gifCaptcha.gif");
+        String gifCaptchaCode = gifCaptcha.getCode();
+        // 打印验证码字符
+        Console.log("gifCaptchaCode", gifCaptchaCode);
+        //新的验证码
+        Console.log(" = Seven = " + gifCaptcha.getCode());
+        //验证图形验证码的有效性，返回boolean值
+        Boolean resSeven = gifCaptcha.verify("1234");
+        Console.log(" = resSeven = " + resSeven);
     }
 }
