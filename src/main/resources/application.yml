@@ -1,0 +1,20 @@
+server:
+  port: 8085
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: qwer1234@Root
+    url: jdbc:mysql://127.0.0.1:3306/book_manage?serverTimeZone=GMT%2b8&characterEncoding=utf-8 # %2b 就是 '+'
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml  #扫描所有 mybatis 的 xml 文件
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl   #打印 SQL 语句
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.UserMapper">
+
+    <update id="updateOldUser">
+        update tb_user
+        <set>
+            <if test="username != null">
+                username = #{username},
+            </if>
+<!--            <if test="password">-->
+<!--                password = #{password}-->
+<!--            </if>-->
+            <if test="nickname != null">
+                nickname = #{nickname},
+            </if>
+            <if test="email != null">
+                email = #{email},
+            </if>
+            <if test="phone != null">
+                phone = #{phone},
+            </if>
+            <if test="address != null">
+                address = #{address},
+            </if>
+        </set>
+        <where>
+            id = #{id}
+        </where>
+    </update>
+
+
+    <!--    查询语句 报错，但是在数据库中用-->
+<!--    <select id="selectAllWithPageSearchKey">-->
+<!--        select * from tb_user where-->
+<!--        <if test="type == 'username'">-->
+<!--            username like concat('%', #{key}, '%')-->
+<!--        </if>-->
+<!--        <if test="type == 'email'">-->
+<!--            email like concat('%', #{key}, '%')-->
+<!--        </if>-->
+<!--        <if test="type == 'address'">-->
+<!--            address like concat('%', #{key}, '%')-->
+<!--        </if>-->
+<!--        limit #{pageNum}, #{pageSize}-->
+<!--    </select>-->
+
+<!--    <select id="selectTotalSearchKey">-->
+<!--        select count(id) from tb_user where-->
+<!--        <if test="type == 'username'">-->
+<!--            username-->
+<!--        </if>-->
+<!--        <if test="type == 'email'">-->
+<!--            email-->
+<!--        </if>-->
+<!--        <if test="type == 'address'">-->
+<!--            address-->
+<!--        </if>-->
+<!--        like concat('%', #{key}, '%')-->
+<!--    </select>-->
+
+</mapper>
