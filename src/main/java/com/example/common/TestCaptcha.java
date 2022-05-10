@@ -44,7 +44,7 @@ public class TestCaptcha {
 
         //重新生成验证码
         lineCaptcha.createCode();
-        lineCaptcha.write("d://lineTwo.png");
+        lineCaptcha.write("d:/lineTwo.png");
         //新的验证码
         Console.log(" = one-Two = " + lineCaptcha.getCode());
         //验证图形验证码的有效性，返回boolean值
