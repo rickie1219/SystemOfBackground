@@ -9,6 +9,20 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+  redis:
+    host: localhost
+    port: 6379
+    password:
+    lettuce:
+    pool:
+      # 最大连接
+      max-active: 8
+      # 最大空闲连接
+      max-idle: 8
+      # 最小空闲连接
+      min-idle: 0
+      # 连接等待时间
+      max-wait: 100
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml  #扫描所有 mybatis 的 xml 文件
