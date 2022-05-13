@@ -8,4 +8,8 @@ public class TestSpringRedis {
     public static void exciseOne() {
 
     }
+
+    public static void exciseTwo() {
+
+    }
 }
