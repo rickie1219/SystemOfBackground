@@ -10,7 +10,7 @@ public class ResultInfo<T> {
 
     public static <T> ResultInfo<T> success(T data) {
         ResultInfo<T> result = new ResultInfo<>();
-        result.setCode("0");
+        result.setCode("20000");
         result.setMsg("成功");
         result.setData(data);
         return result;
@@ -18,8 +18,15 @@ public class ResultInfo<T> {
 
     public static <T> ResultInfo<T> success() {
         ResultInfo<T> result = new ResultInfo<>();
-        result.setCode("0");
+        result.setCode("20000");
         result.setMsg("成功");
+        return result;
+    }
+
+    public static <T> ResultInfo<T> failed(String msg) {
+        ResultInfo<T> result = new ResultInfo<>();
+        result.setCode("50001");
+        result.setMsg(msg);
         return result;
     }
 

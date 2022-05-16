@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @RestController
 @RequestMapping(value = "/login", produces = "application/json; charset=UTF-8")
@@ -37,10 +39,13 @@ public class LoginController {
         return "true";
     }
 
+    /**
+     * 生成验证码 算术类型
+     */
     @GetMapping("/getCaptcha")
     public void captcha(HttpServletRequest request, HttpServletResponse response) throws Exception {
         ArithmeticCaptcha captcha = new ArithmeticCaptcha(130, 48);
-        captcha.setLen(2);
+        captcha.setLen(3);
         captcha.getArithmeticString();
         captcha.text();
         request.getSession().setAttribute("captcha", captcha.text());
@@ -78,15 +83,32 @@ public class LoginController {
 
     // 用户登录
     @PostMapping("/login")
+    @ResponseBody
     // @RequestBogy User user 这种形式会将 JSON 字符串中的值赋予user中对应的属性上
     // 需要注意的是：JSON字符串中的 key 必须对应 User 中的属性名，否则是请求不过去的
-    public ResultInfo loginUser(@RequestBody User userParam) {
+    public ResultInfo loginUser(HttpServletRequest request,
+                                String accountEmail,
+                                String password,
+                                String code,
+                                boolean rememberMe) {
+        if (StringUtil.isBlank(accountEmail, password)) {
+            return ResultInfo.failed("账号或密码不能为空");
+        }
+        if (!EmailIsMatches(accountEmail)){
+            return ResultInfo.failed("邮箱格式不符");
+        }
+        // 验证验证码是否正确
+        String sessionCode = (String) request.getSession().getAttribute("captcha");
+        if (code == null || !sessionCode.equals(code.trim().toLowerCase())) {
+            return ResultInfo.failed("验证码不正确");
+        }
+
         // 先查询数据库中的用户名，如果查到了用户名，再去比对密码，如果没有查询到用户名，直接返回用户名或密码错误
         // 查询数据库，找到的用户名和密码
-        User userFind = loginService.getAccountByEmail(userParam.getEmail());
+        User userFind = loginService.getAccountByEmail(accountEmail);
         if (userFind != null) {
             // 将用户输入的密码 和 从数据库中查询到的密文密码进行比较
-            Boolean isRight = MD5Util.verify(userParam.getEmail() + "" + userParam.getPassword(),
+            Boolean isRight = MD5Util.verify(accountEmail + "" + password,
                     md5SoltString,
                     userFind.getPassword());
             if (isRight) {
@@ -128,5 +150,17 @@ public class LoginController {
         } else {
             return ResultInfo.error("40008", "当前用户不存在，请检查并重新输入！");
         }
+    }
+
+    private boolean EmailIsMatches(String email){
+        // 邮箱正则表达式
+        String check = "^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$";
+        check = "/^([a-zA-Z0-9]+[_|\\_|\\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\\_|\\.]?)*[a-zA-Z0-9]+\\.[a-zA-Z]{2,4}$/";
+        Pattern regex = Pattern.compile(check);
+
+        Matcher matcher = regex.matcher(email);//匹配邮箱格式
+
+        boolean isMatched = matcher.matches();
+        return isMatched;
     }
 }
