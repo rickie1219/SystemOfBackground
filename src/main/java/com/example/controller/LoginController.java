@@ -1,16 +1,18 @@
 package com.example.controller;
 
+import cn.hutool.captcha.CaptchaUtil;
 import com.example.entity.User;
 import com.example.entity.vo.ResultInfo;
 import com.example.service.LoginService;
 import com.example.util.MD5Util;
 import com.example.util.StringUtil;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.wf.captcha.ArithmeticCaptcha;
+import org.apache.el.parser.ArithmeticNode;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping(value = "/login", produces = "application/json; charset=UTF-8")
@@ -33,6 +35,16 @@ public class LoginController {
         User user2 = loginService.userLogin(user);
         System.out.println("======= user2 = " + user2.getUsername());
         return "true";
+    }
+
+    @GetMapping("/getCaptcha")
+    public void captcha(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        ArithmeticCaptcha captcha = new ArithmeticCaptcha(130, 48);
+        captcha.setLen(2);
+        captcha.getArithmeticString();
+        captcha.text();
+        request.getSession().setAttribute("captcha", captcha.text());
+        captcha.out(response.getOutputStream());
     }
 
     // 用户注册
