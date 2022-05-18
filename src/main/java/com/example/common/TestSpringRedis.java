@@ -12,4 +12,8 @@ public class TestSpringRedis {
     public static void exciseTwo() {
 
     }
+
+    public static void exciseThree() {
+
+    }
 }
