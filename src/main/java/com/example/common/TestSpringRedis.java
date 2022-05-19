@@ -20,4 +20,8 @@ public class TestSpringRedis {
     public static void exciseFour() {
 
     }
+
+    public static void exciseFive(){
+
+    }
 }
